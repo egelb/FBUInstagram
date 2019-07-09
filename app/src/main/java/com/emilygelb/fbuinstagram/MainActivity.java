@@ -31,31 +31,31 @@ public class MainActivity extends AppCompatActivity {
             finish();
         } else {
             setContentView(R.layout.activity_main);
+
+            usernameInput = findViewById(R.id.username_et);
+            passwordInput = findViewById(R.id.password_et);
+
+            loginBtn = findViewById(R.id.login_btn);
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final String username = usernameInput.getText().toString();
+                    final String password = passwordInput.getText().toString();
+
+                    login(username, password);
+                }
+            });
+
+            signUp_btn = findViewById(R.id.signUp_btn);
+            signUp_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
-
-        usernameInput = findViewById(R.id.username_et);
-        passwordInput = findViewById(R.id.password_et);
-
-        loginBtn = findViewById(R.id.login_btn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = usernameInput.getText().toString();
-                final String password = passwordInput.getText().toString();
-
-                login(username, password);
-            }
-        });
-
-        signUp_btn = findViewById(R.id.signUp_btn);
-        signUp_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     private void login(String username, String password) {
