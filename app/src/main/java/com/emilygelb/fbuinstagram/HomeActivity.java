@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        loadTopPosts();
         queryPost();
 
         createButton.setOnClickListener(new View.OnClickListener() {

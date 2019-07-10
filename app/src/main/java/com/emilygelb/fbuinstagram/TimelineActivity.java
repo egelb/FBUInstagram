@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.emilygelb.fbuinstagram.model.Post;
 import com.parse.FindCallback;
@@ -20,6 +21,8 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTimline;
     ArrayList<Post> mPosts;
     TimelineAdapter mAdapter;
+
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,23 @@ public class TimelineActivity extends AppCompatActivity {
 
         loadTopPosts();
 
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                swipeContainer.setRefreshing(false);
+               // fetchTimelineAsync(0);
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
+
 
     private void loadTopPosts() {
         final Post.Query postQuery = new Post.Query();
